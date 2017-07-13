@@ -17,3 +17,7 @@ script:
 env:
   - CFLAGS="-I/tmp/libmicrohttpd_install/include" LDFLAGS="-L/tmp/libmicrohttpd_install/lib"
 
+addons:
+  apt:
+    packages:
+    - astyle
