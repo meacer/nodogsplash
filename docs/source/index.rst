@@ -31,6 +31,7 @@ Contents:
    authentication
    ndsctl
    customize
+   checkinterval
    debug
 
 Indices and tables
