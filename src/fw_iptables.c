@@ -331,6 +331,7 @@ iptables_fw_init(void)
 	char * gw_address = NULL;
 	char * gw_iprange = NULL;
 	int gw_port = 0;
+	int gw_port_ssl = 0;
 	int traffic_control;
 	int set_mss, mss_value;
 	t_MAC *pt;
@@ -345,6 +346,7 @@ iptables_fw_init(void)
 	gw_address = safe_strdup(config->gw_address);    /* must free */
 	gw_iprange = safe_strdup(config->gw_iprange);    /* must free */
 	gw_port = config->gw_port;
+	gw_port_ssl = config->gw_port_ssl;
 	pt = config->trustedmaclist;
 	pb = config->blockedmaclist;
 	pa = config->allowedmaclist;
@@ -444,6 +446,9 @@ iptables_fw_init(void)
 
 	/* CHAIN_OUTGOING, packets for tcp port 80, redirect to gw_port on primary address for the iface */
 	rc |= iptables_do_command("-t nat -A " CHAIN_OUTGOING " -p tcp --dport 80 -j DNAT --to-destination %s:%d", gw_address, gw_port);
+	/* CHAIN_OUTGOING, packets for tcp port 443, redirect to gw_port_ssl on primary address for the iface */
+	rc |= iptables_do_command("-t nat -A " CHAIN_OUTGOING " -p tcp --dport 443 -j DNAT --to-destination %s:%d", gw_address, gw_port_ssl);
+
 	/* CHAIN_OUTGOING, other packets  ACCEPT */
 	rc |= iptables_do_command("-t nat -A " CHAIN_OUTGOING " -j ACCEPT");
 
@@ -483,6 +488,8 @@ iptables_fw_init(void)
 
 	/* CHAIN_TO_ROUTER, packets to HTTP listening on gw_port on router ACCEPT */
 	rc |= iptables_do_command("-t filter -A " CHAIN_TO_ROUTER " -p tcp --dport %d -j ACCEPT", gw_port);
+  /* CHAIN_TO_ROUTER, packets to HTTPS listening on gw_port_ssl on router ACCEPT */
+	rc |= iptables_do_command("-t filter -A " CHAIN_TO_ROUTER " -p tcp --dport %d -j ACCEPT", gw_port_ssl);
 
 	/* CHAIN_TO_ROUTER, packets marked TRUSTED: */
 

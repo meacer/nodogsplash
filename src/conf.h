@@ -52,6 +52,7 @@
 #define DEFAULT_GATEWAY_IPRANGE "0.0.0.0/0"
 #define DEFAULT_GATEWAYNAME "NoDogSplash"
 #define DEFAULT_GATEWAYPORT 2050
+#define DEFAULT_GATEWAYPORT_SSL 2051
 #define DEFAULT_REMOTE_AUTH_PORT 80
 #define DEFAULT_CHECKINTERVAL 60
 #define DEFAULT_CLIENTTIMEOUT 10
@@ -154,6 +155,7 @@ typedef struct {
 	char *gw_address;		/**< @brief Internal IP address for our web server */
 	char *gw_mac;			/**< @brief MAC address of the interface we manage */
 	unsigned int gw_port;		/**< @brief Port the webserver will run on */
+	unsigned int gw_port_ssl; /**< @brief Port the SSL webserver will run on */
 	char *remote_auth_action;	/**< @brief Path for remote auth */
 	char enable_preauth;  		/**< @brief enable pre-authentication support */
 	char *bin_voucher;		/**< @brief enable voucher support */

@@ -1,3 +1,5 @@
+#This is a modified version of Nodogsplash for testing. Do not use in production.
+
 ## 0. The Nodogsplash project
 
 Nodogsplash offers a simple way to provide restricted access to an internet

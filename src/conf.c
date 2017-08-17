@@ -210,6 +210,7 @@ config_init(void)
 	config.gw_iprange = safe_strdup(DEFAULT_GATEWAY_IPRANGE);
 	config.gw_address = NULL;
 	config.gw_port = DEFAULT_GATEWAYPORT;
+	config.gw_port_ssl = DEFAULT_GATEWAYPORT_SSL;
 	config.remote_auth_action = NULL;
 	config.webroot = safe_strdup(DEFAULT_WEBROOT);
 	config.splashpage = safe_strdup(DEFAULT_SPLASHPAGE);
