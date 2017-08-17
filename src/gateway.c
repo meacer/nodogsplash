@@ -28,9 +28,9 @@
 
 
 // Check for libmicrohttp version >= 0.9.51
-#if MHD_VERSION < 0x00095100
-#error libmicrohttp version >= 0.9.51 required
-#endif
+//#if MHD_VERSION < 0x00095100
+//#error libmicrohttp version >= 0.9.51 required
+//#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -254,12 +254,12 @@ main_loop(void)
 
 	/* Initializes the web server */
 	if ((webserver = MHD_start_daemon(
-						MHD_USE_EPOLL_INTERNALLY,
+						MHD_USE_EPOLL_INTERNALLY_LINUX_ONLY,
 						config->gw_port,
 						NULL, NULL,
 						libmicrohttpd_cb, NULL,
 						MHD_OPTION_CONNECTION_TIMEOUT, (unsigned int) 120,
-						MHD_OPTION_LISTENING_ADDRESS_REUSE, 1,
+						//MHD_OPTION_LISTENING_ADDRESS_REUSE, 1,
 						MHD_OPTION_END)) == NULL) {
 		debug(LOG_ERR, "Could not create web server: %s", strerror(errno));
 		exit(1);
